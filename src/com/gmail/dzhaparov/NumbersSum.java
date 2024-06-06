@@ -16,6 +16,8 @@ public class NumbersSum {
             System.out.printf("%d) Num is %d, sum is %d \n", i, i, sum);
 
         }
+        System.out.println("-------------------------");
+        System.out.println("Sum of numbers is " + sum);
 
 
     }
