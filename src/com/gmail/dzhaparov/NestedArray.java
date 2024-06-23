@@ -15,10 +15,10 @@ public class NestedArray {
         System.out.println("Matrix: ");
         printArray(array);
 
-        System.out.println("Sum of numbers in even rows: " + sumRows(array, true));
-        System.out.println("Sum of numbers in odd rows: " + sumRows(array, false));
-        System.out.println("Product of numbers in even columns: " + productColumns(array, true));
-        System.out.println("Product of numbers in odd columns: " + productColumns(array, false));
+        System.out.println("Sum of numbers in even rows: " + sumRows(array, 0));
+        System.out.println("Sum of numbers in odd rows: " + sumRows(array, 1));
+        System.out.println("Product of numbers in even columns: " + productColumns(array, 0));
+        System.out.println("Product of numbers in odd columns: " + productColumns(array, 1));
 
         if (isMagicSquare(array)) {
             System.out.println("The matrix is a magic square.");
@@ -27,9 +27,9 @@ public class NestedArray {
         }
     }
 
-    protected static void fillArray(int[][] nestedArray) {
+    protected static void fillArray(int[][] matrix) {
         Random random = new Random();
-        for (int[] array : nestedArray) {
+        for (int[] array : matrix) {
             for (int j = 0; j < array.length; j++) {
                 int randomNumber = random.nextInt(50) + 1;
                 array[j] = randomNumber;
@@ -37,8 +37,8 @@ public class NestedArray {
         }
     }
 
-    protected static void printArray(int[][] nestedArray) {
-        for (int[] array : nestedArray) {
+    protected static void printArray(int[][] matrix) {
+        for (int[] array : matrix) {
             for (int j = 0; j < array.length; j++) {
                 System.out.print(array[j] + " ");
             }
@@ -46,67 +46,69 @@ public class NestedArray {
         }
     }
 
-    protected static int sumRows(int[][] nestedArray, boolean even) {
+    protected static int sumRows(int[][] matrix, int initial) {
         int sum = 0;
-        for (int i = 0; i < nestedArray.length; i++) {
-            if ((i % 2 == 0) == even) {
-                for (int j : nestedArray[i]) {
-                    sum += j;
-                }
+        for (int i = initial; i < matrix.length; i += 2) {
+            for (int j : matrix[i]) {
+                sum += j;
             }
         }
         return sum;
     }
 
-    protected static BigInteger productColumns(int[][] nestedArray, boolean even) {
+    protected static BigInteger productColumns(int[][] matrix, int initial) {
         BigInteger product = BigInteger.ONE;
-        for (int i = 0; i < nestedArray.length; i++) {
-            for (int j = 0; j < nestedArray[i].length; j++) {
-                if ((j % 2 == 0) == even) {
-                    product = product.multiply(BigInteger.valueOf(nestedArray[i][j]));
-                }
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = initial; j < matrix[i].length; j += 2) {
+                product = product.multiply(BigInteger.valueOf(matrix[i][j]));
+
             }
         }
         return product;
     }
 
-    protected static boolean isMagicSquare(int[][] nestedArray) {
-        int size = nestedArray.length;
-        int sumDiag1 = 0, sumDiag2 = 0;
-        int sumRow = 0, sumCol = 0;
+    protected static boolean isMagicSquare(int[][] matrix) {
+        int size = matrix.length;
+        int primaryDiagonalSum = 0;
+        int secondaryDiagonalSum = 0;
+        int rowSum = 0;
+        int columnSum = 0;
 
 
-        int sumReference = 0;
+        int referenceSum = 0;
         for (int j = 0; j < size; j++) {
-            sumReference += nestedArray[0][j];
+            referenceSum += matrix[0][j];
         }
 
+
         for (int i = 0; i < size; i++) {
-            sumRow = 0;
+            rowSum = 0;
             for (int j = 0; j < size; j++) {
-                sumRow += nestedArray[i][j];
+                rowSum += matrix[i][j];
             }
-            if (sumRow != sumReference) {
+            if (rowSum != referenceSum) {
                 return false;
             }
         }
 
 
         for (int j = 0; j < size; j++) {
-            sumCol = 0;
+            columnSum = 0;
             for (int i = 0; i < size; i++) {
-                sumCol += nestedArray[i][j];
+                columnSum += matrix[i][j];
             }
-            if (sumCol != sumReference) {
+            if (columnSum != referenceSum) {
                 return false;
             }
         }
 
 
         for (int i = 0; i < size; i++) {
-            sumDiag1 += nestedArray[i][i];
-            sumDiag2 += nestedArray[i][size - i - 1];
+            primaryDiagonalSum += matrix[i][i];
+            secondaryDiagonalSum += matrix[i][size - i - 1];
         }
-        return sumDiag1 == sumReference && sumDiag2 == sumReference;
+
+        return primaryDiagonalSum == referenceSum && secondaryDiagonalSum == referenceSum;
     }
+
 }
