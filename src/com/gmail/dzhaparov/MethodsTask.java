@@ -20,14 +20,14 @@ public class MethodsTask {
         System.out.printf("2. The volume of a cylinder with a radius of %.2f and a height of %.2f is %f%n", radius, height, volumeCylinder(height, radius));
         System.out.println();
 
-        int[] array = new int[10];
-        fillArray(array);
+        int[] numbersArray = new int[10];
+        fillArray(numbersArray);
         System.out.print("Array of numbers: ");
-        printArray(array);
-        System.out.println("3. Sum of all elements of array equals to " + sumOfElements(array));
+        printArray(numbersArray);
+        System.out.println("3. Sum of all elements of array equals to " + sumOfElements(numbersArray));
         System.out.println();
 
-
+        // Clear the buffer
         scanner.nextLine();
 
         System.out.print("Enter the string: ");
@@ -36,26 +36,26 @@ public class MethodsTask {
         System.out.println();
 
         System.out.print("Enter the first number (a): ");
-        int a = scanner.nextInt();
+        int baseNumber = scanner.nextInt();
         System.out.print("Enter the second number (b): ");
-        int b = scanner.nextInt();
-        System.out.printf("5. Result %d^%d equals to %d%n", a, b, power(a, b));
+        int exponentNumber = scanner.nextInt();
+        System.out.printf("5. Result %d^%d equals to %d%n", baseNumber, exponentNumber, power(baseNumber, exponentNumber));
         System.out.println();
 
         System.out.print("Enter integer n: ");
-        int n = scanner.nextInt();
+        int repeatCount = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Enter the string: ");
-        inputString = scanner.nextLine();
+        String textToRepeat = scanner.nextLine();
         System.out.println("6. Repeated text:");
-        printRepeatedText(n, inputString);
+        printRepeatedText(repeatCount, textToRepeat);
     }
 
     static void fillArray(int[] array) {
         Random random = new Random();
         for (int i = 0; i < array.length; i++) {
-            int newElement = random.nextInt(50) + 1;
-            array[i] = newElement;
+            int randomElement = random.nextInt(50) + 1;
+            array[i] = randomElement;
         }
     }
 
@@ -86,17 +86,31 @@ public class MethodsTask {
         return sum;
     }
 
-    static String reverseString(String string) {
-        StringBuilder reversed = new StringBuilder(string);
-        return reversed.reverse().toString();
+    static String reverseString(String inputString) {
+        char[] charArray = inputString.toCharArray();
+        int left = 0;
+        int right = charArray.length - 1;
+
+        while (left < right) {
+            // Swap the characters
+            char temp = charArray[left];
+            charArray[left] = charArray[right];
+            charArray[right] = temp;
+
+            // Move towards the middle
+            left++;
+            right--;
+        }
+
+        return new String(charArray);
     }
 
-    static int power(int a, int b) {
-        return (int) Math.pow(a, b);
+    static int power(int base, int exponent) {
+        return (int) Math.pow(base, exponent);
     }
 
-    public static void printRepeatedText(int n, String text) {
-        for (int i = 0; i < n; i++) {
+    public static void printRepeatedText(int repeatCount, String text) {
+        for (int i = 0; i < repeatCount; i++) {
             System.out.println(text);
         }
     }
