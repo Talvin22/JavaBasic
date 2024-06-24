@@ -27,7 +27,7 @@ public class MethodsTask {
         System.out.println("3. Sum of all elements of array equals to " + sumOfElements(numbersArray));
         System.out.println();
 
-        // Clear the buffer
+
         scanner.nextLine();
 
         System.out.print("Enter the string: ");
@@ -92,12 +92,12 @@ public class MethodsTask {
         int right = charArray.length - 1;
 
         while (left < right) {
-            // Swap the characters
+
             char temp = charArray[left];
             charArray[left] = charArray[right];
             charArray[right] = temp;
 
-            // Move towards the middle
+
             left++;
             right--;
         }
