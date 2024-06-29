@@ -1,4 +1,4 @@
-package HomeWork_12_1;
+package com.gmail.dzhaparov.HomeWork_12_1;
 
 public class Employee {
     private String name;
