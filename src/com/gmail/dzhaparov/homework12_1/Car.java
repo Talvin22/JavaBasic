@@ -1,4 +1,4 @@
-package com.gmail.dzhaparov.HomeWork_12_1;
+package com.gmail.dzhaparov.homework12_1;
 
 public class Car {
 
