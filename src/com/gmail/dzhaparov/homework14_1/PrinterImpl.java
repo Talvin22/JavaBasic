@@ -1,6 +1,6 @@
 package com.gmail.dzhaparov.homework14_1;
 
-class PrinterImpl implements Printer {
+public class PrinterImpl implements Printer {
 
     public static class Message {
         private String text;
@@ -10,27 +10,11 @@ class PrinterImpl implements Printer {
             this.text = text;
             this.sender = sender;
         }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        public String getSender() {
-            return sender;
-        }
-
-        public void setSender(String sender) {
-            this.sender = sender;
-        }
     }
 
     @Override
     public void print(Message message) {
-        if (message.getText() == null && message.getSender() == null) {
+        if ((message.text == null || message.text.isEmpty()) && (message.sender == null || message.sender.isEmpty())) {
 
             Printer emptyMessageHandler = new Printer() {
                 @Override
@@ -39,24 +23,25 @@ class PrinterImpl implements Printer {
                 }
             };
             emptyMessageHandler.print(message);
-        } else if (message.getSender() == null || message.getSender().isEmpty()) {
-            System.out.println("Анонімний користувач відправив повідомлення: " + message.getText());
+        } else if (message.sender == null || message.sender.isEmpty()) {
+            System.out.println("Анонімний користувач відправив повідомлення: " + message.text);
         } else {
-            System.out.println("Користувач " + message.getSender() + " відправив повідомлення: " + message.getText());
+            System.out.println("Користувач " + message.sender + " відправив повідомлення: " + message.text);
         }
     }
 
     public static void main(String[] args) {
         Printer printer = new PrinterImpl();
 
+        Message[] messages = {
+                new Message("Привіт всім!", "Іван"),
+                new Message("Привіт!", ""),
+                new Message("", "")
+        };
 
-        Message message1 = new Message("Привіт всім!", "Іван");
-        Message message2 = new Message("Привіт!", null);
-        Message message3 = new Message(null, null);
+        for (Message message : messages) {
+            printer.print(message);
+        }
 
-
-        printer.print(message1);
-        printer.print(message2);
-        printer.print(message3);
     }
 }
