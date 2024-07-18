@@ -1,4 +1,4 @@
-package homework15_1;
+package com.gmail.dzhaparov.homework15_1;
 
 class DayAdvisorImpl implements Advisor {
     @Override
